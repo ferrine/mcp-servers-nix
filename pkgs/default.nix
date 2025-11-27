@@ -50,4 +50,5 @@ in
   # community servers
   clickup-mcp-server = pkgs.callPackage ./community/clickup { };
   mcp-server-treesitter = pkgs.callPackage ./community/tree-sitter { };
+  mcp-server-pgtuner = pkgs.callPackage ./community/pgtuner { };
 }
