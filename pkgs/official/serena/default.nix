@@ -10,15 +10,21 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "serena";
-  version = "0.1.4-unstable-2025-11-23";
+  version = "0.1.4-unstable-2025-12-27";
   pyproject = true;
 
   src = fetchFromGitHub {
     owner = "oraios";
     repo = "serena";
-    rev = "d58dbebce24641247e8e181223e079425b282f93";
-    hash = "sha256-+DBo8r5k6FeGjLWEDtYfUdrmugmMqlfG8CgjYs02rls=";
+    rev = "c569212ec65a0efa224abf6bb4b68d8b8ec28185";
+    hash = "sha256-uNtowtHnJn0Q4Nw/D6zufcBcHLYRxuyoT29CnCx6k9E=";
   };
+
+  # I'm not sure why upstream uses blib2to3, such an ancient and unmaintained package
+  postPatch = ''
+    substituteInPlace test/conftest.py \
+      --replace-fail "from blib2to3.pgen2.parse import contextmanager" "from contextlib import contextmanager"
+  '';
 
   build-system = [ python3Packages.hatchling ];
 
